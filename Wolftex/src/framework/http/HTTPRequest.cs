@@ -8,7 +8,7 @@ namespace Wolftex.src.framework.http
     {
       public readonly Dictionary<string, string> headers = new Dictionary<string, string>();
 
-        internal HTTPRequest(Dictionary<string, string> headers, String uri, string body, string verb)
+        public HTTPRequest(Dictionary<string, string> headers, String uri, string body, string verb)
         {
             this.headers = headers;
             this.uri = uri;

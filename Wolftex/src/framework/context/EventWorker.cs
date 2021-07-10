@@ -12,15 +12,47 @@ namespace Wolftex.src.framework.context
         IWolftexContext context;
         Thread thread;
         bool exit = false;
+        Guid guid = Guid.NewGuid();
         Event currentEvent;
 
-        public void threadRunner() {
+        public void Start(WolftexContext context) {
+            this.context = context;
+            thread = new Thread(ThreadRunner);
+            thread.Name = guid.ToString();
+            thread.Start();
+        }
+
+        public Event GetEvent() {
+            return currentEvent;
+        }
+
+        public void PutEvent(Event eventData) {
+            
+            lock (this)
+            {
+                if (this.currentEvent == null)
+                {
+
+                    this.currentEvent = eventData;
+                }
+            }
+        }
+
+        public void ThreadRunner() {
             while (!exit) {
                 if (currentEvent != null) {
+                    System.Console.WriteLine("Processing event on thread: " + guid.ToString());
                     AbstractVerticle vert = context.GetVerticle(currentEvent.target);
-                    if (currentEvent is MesssageEvent) {
+                    if (currentEvent is MesssageEvent)
+                    {
                         MesssageEvent mevent = currentEvent as MesssageEvent;
-                        vert.ReciveMessage(mevent.message); 
+                        vert.ReciveMessage(mevent.message);
+                        currentEvent = null;
+                    }
+                    else if (currentEvent is HttpEvent) {
+                        HttpEvent mevent = currentEvent as HttpEvent;
+                        vert.ProcessHTTPRequest(mevent.request, mevent.response);
+                        currentEvent = null;
                     }
                 }
             }

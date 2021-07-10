@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Wolftex.src.framework.context;
+using Wolftex.src.framework.eventData;
 using Wolftex.src.framework.http;
 
 namespace Wolftex.src.framework.verticle
@@ -9,18 +10,45 @@ namespace Wolftex.src.framework.verticle
     public abstract class AbstractVerticle
     {
         protected IWolftexContext context;
-        protected String name;
         protected Guid id;
+        protected String name;
+        protected AbstractVerticle() {
+            id = Guid.NewGuid();
+        }
+
+        public String getAddress() {
+            if (name != null) {
+                return name;
+            }
+            else {
+                return id.ToString();
+            }
+        }
+
+        public Guid getId() {
+          return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            if (this.name == null) {
+                this.name = name;
+            }
+        }
+
         internal void setup(IWolftexContext wolftex) {
             context = wolftex;
         }
         public abstract void Start();
         public void Stop() { }
-        internal void ReciveMessage(Message message) { }
-        internal void ProcessHTTPRequest(HTTPRequest request, HTTPResponse response) { }
+        public abstract void ReciveMessage(Message message);
+        public abstract void ProcessHTTPRequest(HTTPRequest request, HTTPResponse response);
 
-        internal void SendMessage(Message message, String verticle) { 
-        
+        internal void SendMessage(Message message, String verticle) {
+            context.EnqueEvent(new MesssageEvent(this.name == null ? this.name : this.id.ToString(), verticle, message));
         }
 
     }
