@@ -19,5 +19,6 @@ namespace Wolftex.src.framework.http
         public readonly String uri;
         public readonly String body;
         public readonly String verb;
+        public List<string> wildCardValues;
     }
 }

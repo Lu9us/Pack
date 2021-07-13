@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wolftex", "Wolftex\Wolftex.csproj", "{63F54CFE-7BB6-4C67-AEC2-B6DC8DE0430D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackCore", "Wolftex\PackCore.csproj", "{63F54CFE-7BB6-4C67-AEC2-B6DC8DE0430D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp", "ExampleApp\ExampleApp.csproj", "{6737309C-9498-49D2-B9F8-D69A71987D2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp", "ExampleApp\ExampleApp.csproj", "{6737309C-9498-49D2-B9F8-D69A71987D2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0148020-A19B-4709-9988-C7037877F60F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

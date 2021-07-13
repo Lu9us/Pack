@@ -17,8 +17,8 @@ namespace ExampleApp
         public override void ProcessHTTPRequest(HTTPRequest request, HTTPResponse response)
         {
             System.Console.WriteLine("Recivied http message from handler");
-            response.body = "This is a happy response";
-            response.contentType = "text/html";
+            response.body = "{{\"HelloJSON\":\"this is a test\"}}";
+            response.contentType = "application/json";
             response.statusCode = 200;
             response.end();
 
@@ -35,7 +35,7 @@ namespace ExampleApp
         static void Main(string[] args)
         {
           
-            WolftexContext context = new WolftexContext(2);
+            WolftexContext context = new WolftexContext(8);
             HTTPHandler handler = new HTTPHandler(context, 8080);
             Vert vert = new Vert();
             context.RegisterVerticle(vert);

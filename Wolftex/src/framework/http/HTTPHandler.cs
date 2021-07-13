@@ -30,7 +30,7 @@ namespace Wolftex.src.framework.http
         Thread thread;
         bool running = true;
         public void RegisterEndpoint( String uri, String verb, AbstractVerticle verticle ) {
-            HTTPUriContext context = new HTTPUriContext();
+            HTTPUriContext context = new HTTPUriContext(uri, verb);
             context.path = uri;
             context.verb = verb;
             endpoints.Add(context, verticle);
@@ -44,6 +44,7 @@ namespace Wolftex.src.framework.http
                 HttpListenerRequest req = ctx.Request;
                 HttpListenerResponse res = ctx.Response;
                 Dictionary<string, string> headers = new Dictionary<string, string>();
+                List<string> uriParamaters = new List<string>();
                 string verb = req.HttpMethod;
                 string uri = req.Url.ToString();
                 String body = "";
@@ -75,8 +76,11 @@ namespace Wolftex.src.framework.http
                 bool foundHandler = false;  
                 foreach (HTTPUriContext context in endpoints.Keys)
                 {
-                    if (context.MatchesQuery(request))
+                    String[] splitPath = SplitRequestURI(request);
+                    if (context.MatchesQuery(splitPath, request.verb))
                     {
+                        List<string> urlWildCards = context.GetWildCardValues(splitPath);
+                        request.wildCardValues = urlWildCards;
                         AbstractVerticle verticle = endpoints[context];
                         HttpEvent message = new HttpEvent(request, response, id.ToString(), verticle.getAddress()  );
                         this.context.EnqueEvent(message);
@@ -89,6 +93,15 @@ namespace Wolftex.src.framework.http
                 }
             }
         }
-     
+
+        public static string[] SplitRequestURI(HTTPRequest request)
+        {
+            String urlParams = request.uri.Split("?").Length > 1 ? request.uri.Split("?")[1] : null;
+            String[] queryData = request.uri.Split("?")[0].Split("//");
+            String query = queryData[1];
+            String requestPath = query.Substring(query.IndexOf("/"));
+            String[] splitPath = requestPath.Substring(1).Split("/");
+            return splitPath;
+        }
     }
 }
