@@ -51,8 +51,8 @@ namespace Pack.src.framework.context
                         currentEvent = null;
                     }
                     else if (currentEvent is HttpEvent) {
-                        HttpEvent mevent = currentEvent as HttpEvent;
-                        vert.ProcessHTTPRequest(mevent.request, mevent.response);
+                        HttpEvent httpEvent = currentEvent as HttpEvent;
+                        vert.ProcessHTTPRequest(httpEvent.request, httpEvent.response);
                         currentEvent = null;
                     }
                 }

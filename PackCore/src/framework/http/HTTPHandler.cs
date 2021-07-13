@@ -88,7 +88,7 @@ namespace Pack.src.framework.http
                         List<string> urlWildCards = context.GetWildCardValues(splitPath);
                         request.wildCardValues = urlWildCards;
                         AbstractVerticle verticle = endpoints[context];
-                        HttpEvent message = new HttpEvent(request, response, id.ToString(), verticle.getAddress()  );
+                        HttpEvent message = new HttpEvent(request, response, id.ToString(), verticle.GetAddress()  );
                         this.context.EnqueEvent(message);
                         foundHandler = true;
                     }
@@ -100,7 +100,7 @@ namespace Pack.src.framework.http
             }
         }
 
-        public static string[] SplitRequestURI(HTTPRequest request)
+        public string[] SplitRequestURI(HTTPRequest request)
         {
             String urlParams = request.uri.Split("?").Length > 1 ? request.uri.Split("?")[1] : null;
             String[] queryData = request.uri.Split("?")[0].Split("//");

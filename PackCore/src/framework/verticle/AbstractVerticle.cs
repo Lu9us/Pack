@@ -16,7 +16,7 @@ namespace Pack.src.framework.verticle
             id = Guid.NewGuid();
         }
 
-        public String getAddress() {
+        public String GetAddress() {
             if (name != null) {
                 return name;
             }
@@ -25,21 +25,21 @@ namespace Pack.src.framework.verticle
             }
         }
 
-        public Guid getId() {
+        public Guid GetId() {
           return id;
         }
 
-        public String getName() {
+        public String GetName() {
             return name;
         }
 
-        public void setName(String name) {
+        public void SetName(String name) {
             if (this.name == null) {
                 this.name = name;
             }
         }
 
-        internal void setup(IPackContext wolftex) {
+        internal void Setup(IPackContext wolftex) {
             context = wolftex;
         }
         public abstract void Start();

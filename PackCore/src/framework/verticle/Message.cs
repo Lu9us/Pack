@@ -6,7 +6,7 @@ namespace Pack.src.framework.verticle
 {
    public class Message
     {
-        public String JSONData;
+        public String data;
         public String senderId;
     }
 }

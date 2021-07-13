@@ -19,11 +19,12 @@ namespace Pack.src.framework.http
         internal delegate void SenderDelegate();
         internal SenderDelegate senderDelegate;
         private bool ended = false;
-        public void end()
+        public void End()
         {
             if (ended != true)
             {
                 senderDelegate.Invoke();
+                ended = true;
             }
         }
     }

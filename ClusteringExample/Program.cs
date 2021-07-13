@@ -16,10 +16,10 @@ namespace ClusteringExample
 
             public override void ReciveMessage(Message message)
             {
-                Console.WriteLine("message: " + message.JSONData + " recived from: " + message.senderId);
-                if (message.JSONData == "Hello there!") {
+                Console.WriteLine("message: " + message.data + " recived from: " + message.senderId);
+                if (message.data == "Hello there!") {
                     Message messageResponse = new Message();
-                    messageResponse.JSONData = "General Kenobi!";
+                    messageResponse.data = "General Kenobi!";
                     SendMessage(messageResponse, message.senderId);
 
                 }
@@ -31,7 +31,7 @@ namespace ClusteringExample
 
             public void sendMessageTo(string id) {
                 Message message = new Message();
-                message.JSONData = "Hello there!";
+                message.data = "Hello there!";
                 SendMessage(message, id);
 
             }

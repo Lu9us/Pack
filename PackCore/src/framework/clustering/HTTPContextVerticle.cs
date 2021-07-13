@@ -38,8 +38,7 @@ namespace PackCore.src.framework.clustering
                 {
                     addressMap.TryAdd(body.address, body.verticles);
                     response.statusCode = 200;
-                    response.body = "";
-                    response.end();
+                    response.End();
                     if (!registeredWith.Contains(body.address.ToLower()))
                     {
                         SendRegistration(body.address);
@@ -55,7 +54,7 @@ namespace PackCore.src.framework.clustering
                     addressMap.TryRemove(body.address, out value);
                     addressMap.TryAdd(body.address, body.verticles);
                     response.statusCode = 200;
-                    response.end();
+                    response.End();
                 }
             }
             else if (request.splitUrl[request.splitUrl.Length - 1] == MESSAGE_ENDPOINT.Substring(1))
@@ -63,7 +62,7 @@ namespace PackCore.src.framework.clustering
                 MessageEvent messageEvent = JsonConvert.DeserializeObject<MessageEvent>(request.body);
                 context.EnqueEvent(messageEvent);
                 response.statusCode = 200;
-                response.end();
+                response.End();
             }
 
         }
@@ -74,7 +73,7 @@ namespace PackCore.src.framework.clustering
 
         public void SendRegistration( string targetAddress) {
             String baseAddress = "http://localHost:" + port;
-            List<string> verts = context.getVerticles();
+            List<string> verts = context.GetVerticles();
             RegisterRequestBody body = new RegisterRequestBody(baseAddress, verts);
             HttpContent content = new StringContent(JsonConvert.SerializeObject(body));
             registeredWith.Add(targetAddress);
@@ -83,12 +82,13 @@ namespace PackCore.src.framework.clustering
             }
             if (!data.IsCompletedSuccessfully) {
                 registeredWith.Remove(targetAddress);
+                System.Console.WriteLine("Exception while trying to register with another context: " + data.Exception.Message);
             }
             System.Console.WriteLine("Sent Registration");
         }
 
         public void SendUpdate() {
-            List<string> verts = context.getVerticles();
+            List<string> verts = context.GetVerticles();
             String baseAddress = "http://localHost:" + port;
             RegisterRequestBody body = new RegisterRequestBody(baseAddress, verts);
             HttpContent content = new StringContent(JsonConvert.SerializeObject(body));
@@ -96,13 +96,26 @@ namespace PackCore.src.framework.clustering
             foreach (string key in addressMap.Keys)
             {   
                 Task data = httpClient.PostAsync(key + UPDATE_ENDPOINT, content);
+                if (!data.IsCompletedSuccessfully)
+                {
+                    while (!data.IsCompleted)
+                    {
+                    }
+                    System.Console.WriteLine("Exception while trying to update another context: " + data.Exception.Message);
+                }
             }
         }
         public void SendMessage(MessageEvent messageEvent) {
             string address = addressMap.First(value => value.Value.Contains(messageEvent.target)).Key;
             HttpContent content = new StringContent(JsonConvert.SerializeObject(messageEvent));
             Task data = httpClient.PostAsync(address + MESSAGE_ENDPOINT, content);
-
+            if (!data.IsCompletedSuccessfully)
+            {
+                while (!data.IsCompleted)
+                {
+                }
+                System.Console.WriteLine("Exception while trying to update another context: " + data.Exception.Message);
+            }
 
         }
 

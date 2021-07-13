@@ -63,15 +63,15 @@ namespace Pack.src.framework.context
 
         public void RegisterVerticle(AbstractVerticle verticle)
         {
-            this.verticles.TryAdd(verticle.getId().ToString(), verticle);
-            verticle.setup(this);
+            this.verticles.TryAdd(verticle.GetId().ToString(), verticle);
+            verticle.Setup(this);
         }
 
         public void RegisterVerticle(AbstractVerticle verticle, String name)
         {
             this.verticles.TryAdd(name, verticle);
-            verticle.setup(this);
-            verticle.setName(name);
+            verticle.Setup(this);
+            verticle.SetName(name);
             if (clusterVerticle != null) {
                 clusterVerticle.SendUpdate();
             }
@@ -140,7 +140,7 @@ namespace Pack.src.framework.context
             clusterVerticle.SendRegistration(contextAddress);
         }
 
-        public List<string> getVerticles()
+        public List<string> GetVerticles()
         {
             return new List<string>(this.verticles.Keys);
         }

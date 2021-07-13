@@ -20,7 +20,7 @@ namespace ExampleApp
             response.body = "{{\"HelloJSON\":\"this is a test\"}}";
             response.contentType = "application/json";
             response.statusCode = 200;
-            response.end();
+            response.End();
 
 
         }

@@ -17,6 +17,6 @@ namespace Pack.src.framework.context
         void ExecuteEvent(Event newEvent);
         void EnableClustering();
         void ConnectToContext(String contextAddress);
-        List<string> getVerticles();
+        List<string> GetVerticles();
     }
 }
