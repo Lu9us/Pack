@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Wolftex.src.framework.verticle
+namespace Pack.src.framework.verticle
 {
    public class Message
     {

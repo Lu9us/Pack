@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Wolftex.src.framework.http;
+using Pack.src.framework.http;
 
-namespace Wolftex.src.framework.eventData
+namespace Pack.src.framework.eventData
 {
    public class HttpEvent: Event
     {

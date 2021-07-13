@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Text;
-using Wolftex.src.framework.eventData;
-using Wolftex.src.framework.verticle;
+using Pack.src.framework.eventData;
+using Pack.src.framework.verticle;
 using System.Threading;
 
-namespace Wolftex.src.framework.context
+namespace Pack.src.framework.context
 {
     public class WolftexContext : IWolftexContext
     {

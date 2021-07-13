@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Wolftex.src.framework.http
+namespace Pack.src.framework.http
 {
     public class HTTPRequest
     {

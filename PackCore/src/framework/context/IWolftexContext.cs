@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Wolftex.src.framework.eventData;
-using Wolftex.src.framework.verticle;
+using Pack.src.framework.eventData;
+using Pack.src.framework.verticle;
 
-namespace Wolftex.src.framework.context
+namespace Pack.src.framework.context
 {
    public interface IWolftexContext
     {

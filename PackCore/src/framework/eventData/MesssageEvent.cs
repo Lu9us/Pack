@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Wolftex.src.framework.verticle;
+using Pack.src.framework.verticle;
 
-namespace Wolftex.src.framework.eventData
+namespace Pack.src.framework.eventData
 {
     public class MesssageEvent : Event
     {

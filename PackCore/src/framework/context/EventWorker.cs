@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Wolftex.src.framework.eventData;
-using Wolftex.src.framework.verticle;
+using Pack.src.framework.eventData;
+using Pack.src.framework.verticle;
 
-namespace Wolftex.src.framework.context
+namespace Pack.src.framework.context
 {
    public class EventWorker
     {
