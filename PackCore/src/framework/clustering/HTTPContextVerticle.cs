@@ -97,11 +97,11 @@ namespace PackCore.src.framework.clustering
             foreach (string key in addressMap.Keys)
             {   
                 Task data = httpClient.PostAsync(key + UPDATE_ENDPOINT, content);
+                while (!data.IsCompleted)
+                {
+                }
                 if (!data.IsCompletedSuccessfully)
                 {
-                    while (!data.IsCompleted)
-                    {
-                    }
                     System.Console.WriteLine("Exception while trying to update another context: " + data.Exception.Message);
                 }
             }
@@ -110,11 +110,11 @@ namespace PackCore.src.framework.clustering
             string address = addressMap.First(value => value.Value.Contains(messageEvent.target)).Key;
             HttpContent content = new StringContent(JsonConvert.SerializeObject(messageEvent));
             Task data = httpClient.PostAsync(address + MESSAGE_ENDPOINT, content);
-            if (!data.IsCompletedSuccessfully)
+            while (!data.IsCompleted)
             {
-                while (!data.IsCompleted)
-                {
-                }
+            }
+            if (!data.IsCompletedSuccessfully)
+            { 
                 System.Console.WriteLine("Exception while trying to update another context: " + data.Exception.Message);
             }
 
