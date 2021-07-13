@@ -7,7 +7,7 @@ using Pack.src.framework.verticle;
 
 namespace Pack.src.framework.context
 {
-   public class EventWorker
+   internal class EventWorker
     {
         IPackContext context;
         Thread thread;

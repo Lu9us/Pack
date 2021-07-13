@@ -14,21 +14,22 @@ using System.Threading.Tasks;
 
 namespace PackCore.src.framework.clustering
 {
-    public class ClusteringVerticle : AbstractVerticle
+    internal class ClusteringVerticle : AbstractVerticle
     {
         public readonly string REGISTER_ENDPOINT = "/registerContext";
         public readonly string UPDATE_ENDPOINT = "/updateContext";
         public readonly string MESSAGE_ENDPOINT = "/onMessage";
-        public List<string> registeredWith = new List<string>();
+        private List<string> registeredWith = new List<string>();
         private int port;
+        private ConcurrentDictionary<string, List<string>> addressMap = new ConcurrentDictionary<string, List<string>>();
+        private HttpClient httpClient;
         public ClusteringVerticle(int port) {
             this.port = port;
             httpClient = new HttpClient();
         }
 
        
-        ConcurrentDictionary<string, List<string>> addressMap = new ConcurrentDictionary<string, List<string>>();
-        HttpClient httpClient;
+
         public override void ProcessHTTPRequest(HTTPRequest request, HTTPResponse response)
         {
             if (request.splitUrl[request.splitUrl.Length - 1] == REGISTER_ENDPOINT.Substring(1))
