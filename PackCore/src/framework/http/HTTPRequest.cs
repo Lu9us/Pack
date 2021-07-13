@@ -20,5 +20,6 @@ namespace Pack.src.framework.http
         public readonly String body;
         public readonly String verb;
         public List<string> wildCardValues;
+        public String[] splitUrl;
     }
 }

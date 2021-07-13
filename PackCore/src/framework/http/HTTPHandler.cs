@@ -10,10 +10,11 @@ using Pack.src.framework.verticle;
 
 namespace Pack.src.framework.http
 {
-   public class HTTPHandler
+   public class HTTPHandler : IHTTPHandler
     {
-        public HTTPHandler(IWolftexContext context, int port) {
+        public HTTPHandler(IPackContext context, int port) {
             this.context = context;
+            this.Port = port;
             this.prefix = "http://localhost:" + port.ToString() + "/";
             this.listener = new HttpListener();
             this.listener.Prefixes.Add(prefix);
@@ -24,10 +25,11 @@ namespace Pack.src.framework.http
         }
         Guid id;
         Dictionary<HTTPUriContext, AbstractVerticle> endpoints = new Dictionary<HTTPUriContext, AbstractVerticle>();
-        String prefix;
+        public readonly String prefix;
         HttpListener listener;
-        IWolftexContext context;
+        IPackContext context;
         Thread thread;
+        public readonly int Port;
         bool running = true;
         public void RegisterEndpoint( String uri, String verb, AbstractVerticle verticle ) {
             HTTPUriContext context = new HTTPUriContext(uri, verb);
@@ -63,10 +65,13 @@ namespace Pack.src.framework.http
                     try
                     {
                         res.StatusCode = response.statusCode;
-                        byte[] data = Encoding.UTF8.GetBytes(String.Format(response.body));
-                        res.ContentType = response.contentType;
-                        res.OutputStream.Write(data);
-                        res.Close();
+                        if (String.IsNullOrEmpty(body))
+                        {
+                            byte[] data = Encoding.UTF8.GetBytes(String.Format(response.body));
+                            res.OutputStream.Write(data);
+                            res.ContentType = response.contentType;
+                        }
+                         res.Close();
                     }
                     catch (Exception e) {
                         System.Console.WriteLine(e.Message);
@@ -77,6 +82,7 @@ namespace Pack.src.framework.http
                 foreach (HTTPUriContext context in endpoints.Keys)
                 {
                     String[] splitPath = SplitRequestURI(request);
+                    request.splitUrl = splitPath;
                     if (context.MatchesQuery(splitPath, request.verb))
                     {
                         List<string> urlWildCards = context.GetWildCardValues(splitPath);

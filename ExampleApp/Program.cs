@@ -35,7 +35,7 @@ namespace ExampleApp
         static void Main(string[] args)
         {
           
-            WolftexContext context = new WolftexContext(8);
+            PackContext context = new PackContext(8);
             HTTPHandler handler = new HTTPHandler(context, 8080);
             Vert vert = new Vert();
             context.RegisterVerticle(vert);

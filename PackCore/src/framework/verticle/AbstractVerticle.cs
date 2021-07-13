@@ -9,7 +9,7 @@ namespace Pack.src.framework.verticle
 {
     public abstract class AbstractVerticle
     {
-        protected IWolftexContext context;
+        protected IPackContext context;
         protected Guid id;
         protected String name;
         protected AbstractVerticle() {
@@ -39,7 +39,7 @@ namespace Pack.src.framework.verticle
             }
         }
 
-        internal void setup(IWolftexContext wolftex) {
+        internal void setup(IPackContext wolftex) {
             context = wolftex;
         }
         public abstract void Start();
@@ -47,8 +47,10 @@ namespace Pack.src.framework.verticle
         public abstract void ReciveMessage(Message message);
         public abstract void ProcessHTTPRequest(HTTPRequest request, HTTPResponse response);
 
-        internal void SendMessage(Message message, String verticle) {
-            context.EnqueEvent(new MesssageEvent(this.name == null ? this.name : this.id.ToString(), verticle, message));
+        protected void SendMessage(Message message, String verticle) {
+            String messageSender = this.name != null ? this.name : this.id.ToString();
+            message.senderId = messageSender;
+            context.EnqueEvent(new MessageEvent(messageSender, verticle, message));
         }
 
     }

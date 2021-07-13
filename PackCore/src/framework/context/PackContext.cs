@@ -5,18 +5,22 @@ using System.Text;
 using Pack.src.framework.eventData;
 using Pack.src.framework.verticle;
 using System.Threading;
+using Pack.src.framework.http;
+using PackCore.src.framework.clustering;
 
 namespace Pack.src.framework.context
 {
-    public class WolftexContext : IWolftexContext
+    public class PackContext : IPackContext
     {
 
         ConcurrentDictionary<String, AbstractVerticle> verticles = new ConcurrentDictionary<string, AbstractVerticle>();
         ConcurrentQueue<Event> eventQueue = new ConcurrentQueue<Event>();
         List<EventWorker> workers = new List<EventWorker>();
+        HTTPHandler httpHandler;
         Thread eventBus;
+        ClusteringVerticle clusterVerticle;
         bool exit = false;
-        public WolftexContext(int workerCount)
+        public PackContext(int workerCount)
         {
             for (int i = 0; i < workerCount; i++) {
                 EventWorker worker = new EventWorker();
@@ -25,6 +29,14 @@ namespace Pack.src.framework.context
             }
             eventBus = new Thread(ProcessEventBus);
             eventBus.Start();
+        }
+
+        public void createHTTPHandler(int port) {
+            httpHandler = new HTTPHandler(this, port);
+        }
+
+        public IHTTPHandler getHTTPHandler() {
+            return httpHandler;
         }
 
         public AbstractVerticle GetVerticle(String id) {
@@ -59,6 +71,10 @@ namespace Pack.src.framework.context
         {
             this.verticles.TryAdd(name, verticle);
             verticle.setup(this);
+            verticle.setName(name);
+            if (clusterVerticle != null) {
+                clusterVerticle.SendUpdate();
+            }
         }
 
         private bool WorkerAvalible() {
@@ -91,10 +107,42 @@ namespace Pack.src.framework.context
                     eventQueue.TryDequeue(out eventData);
                     if (eventData != null)
                     {
-                        worker.PutEvent(eventData);
+                        if (verticles.ContainsKey(eventData.target))
+                        {
+                            worker.PutEvent(eventData);
+                            worker.threadHandler.Set();
+                        }
+                        else if(
+                            clusterVerticle != null
+                            && clusterVerticle.HasRemoteVerticle(eventData.target) 
+                            && eventData is MessageEvent
+                            ) {
+                            clusterVerticle.SendMessage(eventData as MessageEvent);
+                        }
                     }
                 }
             }
+        }
+
+        public void EnableClustering()
+        {
+            if (httpHandler != null) {
+                clusterVerticle = new ClusteringVerticle(httpHandler.Port);
+                this.RegisterVerticle(clusterVerticle);
+                httpHandler.RegisterEndpoint(clusterVerticle.MESSAGE_ENDPOINT, "POST", clusterVerticle);
+                httpHandler.RegisterEndpoint(clusterVerticle.REGISTER_ENDPOINT, "POST", clusterVerticle);
+                httpHandler.RegisterEndpoint(clusterVerticle.UPDATE_ENDPOINT, "POST", clusterVerticle);
+            }
+        }
+
+        public void ConnectToContext(string contextAddress)
+        {
+            clusterVerticle.SendRegistration(contextAddress);
+        }
+
+        public List<string> getVerticles()
+        {
+            return new List<string>(this.verticles.Keys);
         }
     }
 }

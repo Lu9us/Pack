@@ -7,6 +7,5 @@ namespace Pack.src.framework.http
     public interface IHTTPHandler
     {
        void HandleRequest();
-        void SendResponse();
     }
 }

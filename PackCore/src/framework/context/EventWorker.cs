@@ -9,13 +9,14 @@ namespace Pack.src.framework.context
 {
    public class EventWorker
     {
-        IWolftexContext context;
+        IPackContext context;
         Thread thread;
         bool exit = false;
         Guid guid = Guid.NewGuid();
         Event currentEvent;
+        internal AutoResetEvent threadHandler = new AutoResetEvent(false);
 
-        public void Start(WolftexContext context) {
+        public void Start(PackContext context) {
             this.context = context;
             thread = new Thread(ThreadRunner);
             thread.Name = guid.ToString();
@@ -43,9 +44,9 @@ namespace Pack.src.framework.context
                 if (currentEvent != null) {
                     System.Console.WriteLine("Processing event on thread: " + guid.ToString());
                     AbstractVerticle vert = context.GetVerticle(currentEvent.target);
-                    if (currentEvent is MesssageEvent)
+                    if (currentEvent is MessageEvent)
                     {
-                        MesssageEvent mevent = currentEvent as MesssageEvent;
+                        MessageEvent mevent = currentEvent as MessageEvent;
                         vert.ReciveMessage(mevent.message);
                         currentEvent = null;
                     }
@@ -55,6 +56,7 @@ namespace Pack.src.framework.context
                         currentEvent = null;
                     }
                 }
+                threadHandler.WaitOne();
             }
         }
     }

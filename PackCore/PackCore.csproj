@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="src\framework\json\" />
+    <Compile Remove="src\framework\json\**" />
+    <EmbeddedResource Remove="src\framework\json\**" />
+    <None Remove="src\framework\json\**" />
   </ItemGroup>
 
   <ItemGroup>

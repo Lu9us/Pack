@@ -5,10 +5,10 @@ using Pack.src.framework.verticle;
 
 namespace Pack.src.framework.eventData
 {
-    public class MesssageEvent : Event
+    public class MessageEvent : Event
     {
         public readonly Message message;
-        public MesssageEvent(string source, string target, Message message) : base(source, target)
+        public MessageEvent(string source, string target, Message message) : base(source, target)
         {
             this.message = message;
         }
