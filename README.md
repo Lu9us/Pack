@@ -1,4 +1,4 @@
-Wolftex is a simple event driven framework written for .net core
+Pack is a simple event driven framework written for .net core
 It uses the concept of Verticles that segregate system components and provides communcation via a shared context.
 The framework includes an intergrated HTTP server that allows verticles to register for events based on URL paths and request types.
 
