@@ -7,10 +7,10 @@ The framework includes an intergrated HTTP server that allows verticles to regis
 As Pack is currently in its prototype stages please do not deploy it to any public facing environments or critical infrastructure.
 
 currently not implemented but planned: 
-	* automatic cluster propergation
-	* HTTP headers: I need to learn more about how the wrapped HTTP server represents them and write a translation for the wrapper.
-	* Custom Message types.
-	* Robust error checking. 
-	* TDD: This would be here but I forgot tests have to be part of a seprate projects in C#
-	* file based configuration
+* automatic cluster propergation
+* HTTP headers: I need to learn more about how the wrapped HTTP server represents them and write a translation for the wrapper.
+* Custom Message types.
+* Robust error checking. 
+* TDD: This would be here but I forgot tests have to be part of a seprate projects in C#
+* file based configuration
  
