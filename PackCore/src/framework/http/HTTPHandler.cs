@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Linq;
 using System.Threading;
 using Pack.src.framework.context;
 using Pack.src.framework.eventData;
@@ -50,6 +51,14 @@ namespace Pack.src.framework.http
                 string verb = req.HttpMethod;
                 string uri = req.Url.ToString();
                 String body = "";
+                for (int i = 0; i < req.Headers.Count; i++) {
+                    String headerValue = req.Headers.Get(i);
+                    String headerKey = req.Headers.Keys.Get(i);
+                    headers.Add(headerKey, headerValue);
+                    Console.WriteLine(headerKey + ": " + headerValue);
+                }
+
+
                 if (req.HasEntityBody) {
                     StreamReader bodyReader = new StreamReader(req.InputStream, req.ContentEncoding);
                     body = bodyReader.ReadToEnd();
@@ -65,11 +74,18 @@ namespace Pack.src.framework.http
                     try
                     {
                         res.StatusCode = response.statusCode;
+                        foreach (KeyValuePair<String, String> keyValuePair in response.headers)
+                        {
+                            res.AddHeader(keyValuePair.Key, keyValuePair.Value);
+                        }
+
                         if (String.IsNullOrEmpty(body))
                         {
+                            
                             byte[] data = Encoding.UTF8.GetBytes(String.Format(response.body));
                             res.OutputStream.Write(data);
                             res.ContentType = response.contentType;
+                           
                         }
                          res.Close();
                     }

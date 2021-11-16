@@ -19,6 +19,7 @@ namespace ExampleApp
             System.Console.WriteLine("Recivied http message from handler");
             response.body = "{{\"HelloJSON\":\"this is a test\"}}";
             response.contentType = "application/json";
+            response.headers.Add("res-token", "e621");
             response.statusCode = 200;
             response.End();
 
@@ -36,7 +37,7 @@ namespace ExampleApp
         {
           
             PackContext context = new PackContext(8);
-            HTTPHandler handler = new HTTPHandler(context, 8080);
+            HTTPHandler handler = new HTTPHandler(context, 8081);
             Vert vert = new Vert();
             context.RegisterVerticle(vert);
             handler.RegisterEndpoint("/test", "GET", vert);
