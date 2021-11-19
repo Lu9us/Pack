@@ -74,6 +74,7 @@ namespace Pack.src.framework.http
                     try
                     {
                         res.StatusCode = response.statusCode;
+                        res.AddHeader("Server", " ");
                         foreach (KeyValuePair<String, String> keyValuePair in response.headers)
                         {
                             res.AddHeader(keyValuePair.Key, keyValuePair.Value);
