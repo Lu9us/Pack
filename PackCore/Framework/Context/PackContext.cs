@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Text;
-using Pack.src.framework.eventData;
-using Pack.src.framework.verticle;
+using Pack.framework.eventData;
+using Pack.framework.verticle;
 using System.Threading;
-using Pack.src.framework.http;
-using PackCore.src.framework.clustering;
+using Pack.framework.http;
+using PackCore.framework.clustering;
 
-namespace Pack.src.framework.context
+namespace Pack.framework.context
 {
     public class PackContext : IPackContext
     {

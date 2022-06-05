@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PackCore.src.framework.clustering
+namespace PackCore.framework.clustering
 {
    internal class RegisterRequestBody
     {

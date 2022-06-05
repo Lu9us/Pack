@@ -5,11 +5,11 @@ using System.Net;
 using System.Text;
 using System.Linq;
 using System.Threading;
-using Pack.src.framework.context;
-using Pack.src.framework.eventData;
-using Pack.src.framework.verticle;
+using Pack.framework.context;
+using Pack.framework.eventData;
+using Pack.framework.verticle;
 
-namespace Pack.src.framework.http
+namespace Pack.framework.http
 {
    public class HTTPHandler : IHTTPHandler
     {

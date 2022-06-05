@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pack.src.framework.http
+namespace Pack.framework.http
 {
    public class HTTPResponse
     {

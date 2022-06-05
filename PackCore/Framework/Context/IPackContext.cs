@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Pack.src.framework.eventData;
-using Pack.src.framework.verticle;
+using Pack.framework.eventData;
+using Pack.framework.verticle;
 
-namespace Pack.src.framework.context
+namespace Pack.framework.context
 {
    public interface IPackContext
     {

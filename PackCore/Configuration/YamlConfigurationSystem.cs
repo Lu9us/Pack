@@ -5,7 +5,7 @@ using System.Text;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace PackCore.src.Configuration
+namespace PackCore.Configuration
 {
     public class YamlConfigurationSystem : FileConfigurationSystem
     {

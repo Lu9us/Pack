@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Pack.src.framework.verticle;
+using Pack.framework.verticle;
 
-namespace Pack.src.framework.eventData
+namespace Pack.framework.eventData
 {
     public class MessageEvent : Event
     {

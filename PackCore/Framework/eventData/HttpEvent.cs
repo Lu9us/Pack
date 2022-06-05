@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Pack.src.framework.http;
+using Pack.framework.http;
 
-namespace Pack.src.framework.eventData
+namespace Pack.framework.eventData
 {
    public class HttpEvent: Event
     {

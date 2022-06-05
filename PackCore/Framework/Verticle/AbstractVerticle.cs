@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Pack.src.framework.context;
-using Pack.src.framework.eventData;
-using Pack.src.framework.http;
+using Pack.framework.context;
+using Pack.framework.eventData;
+using Pack.framework.http;
 
-namespace Pack.src.framework.verticle
+namespace Pack.framework.verticle
 {
     public abstract class AbstractVerticle
     {

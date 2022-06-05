@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pack.src.framework.verticle
+namespace Pack.framework.verticle
 {
    public class Message
     {

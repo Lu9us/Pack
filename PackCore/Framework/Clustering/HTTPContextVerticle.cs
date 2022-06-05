@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Pack.src.framework.context;
-using Pack.src.framework.eventData;
-using Pack.src.framework.http;
-using Pack.src.framework.verticle;
-using PackCore.src.framework.clustering;
+using Pack.framework.context;
+using Pack.framework.eventData;
+using Pack.framework.http;
+using Pack.framework.verticle;
+using PackCore.framework.clustering;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackCore.src.framework.clustering
+namespace PackCore.framework.clustering
 {
     internal class ClusteringVerticle : AbstractVerticle
     {

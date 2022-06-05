@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pack.src.framework.eventData
+namespace Pack.framework.eventData
 {
    public abstract class Event
     {

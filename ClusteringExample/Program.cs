@@ -1,6 +1,6 @@
-﻿using Pack.src.framework.context;
-using Pack.src.framework.http;
-using Pack.src.framework.verticle;
+﻿using Pack.framework.context;
+using Pack.framework.http;
+using Pack.framework.verticle;
 using System;
 
 namespace ClusteringExample

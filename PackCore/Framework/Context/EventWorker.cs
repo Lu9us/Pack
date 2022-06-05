@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Pack.src.framework.eventData;
-using Pack.src.framework.verticle;
+using Pack.framework.eventData;
+using Pack.framework.verticle;
 
-namespace Pack.src.framework.context
+namespace Pack.framework.context
 {
    internal class EventWorker
     {

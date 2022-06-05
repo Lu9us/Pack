@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PackCore.src.Configuration
+namespace PackCore.Configuration
 {
    public abstract class FileConfigurationSystem : IConfigurationSystem
     {
